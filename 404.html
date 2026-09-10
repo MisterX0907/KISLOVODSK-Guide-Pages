@@ -1,11 +1,6 @@
-<!doctype html>
-<html lang="ru"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#234c65" />
-  <meta name="description" content="Красивые места, готовые прогулки и маленькие открытия. Ваш личный путеводитель по Кисловодску." />
-  <link rel="manifest" href="./manifest.webmanifest" /><link rel="icon" href="./icon.svg" /><link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
-  <title>Кисловодск — ваш личный гид</title>
-  <script type="module" crossorigin src="/KISLOVODSK-Guide-Pages/assets/index-5b0Fv0Yd.js"></script>
-  <link rel="modulepreload" crossorigin href="/KISLOVODSK-Guide-Pages/assets/rolldown-runtime-CbXtAM7H.js">
-  <link rel="stylesheet" crossorigin href="/KISLOVODSK-Guide-Pages/assets/index-8Kb7l8fW.css">
-</head><body><div id="root"></div></body></html>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Открываем гид…</title></head><body><script>
+const parts = location.pathname.split('/').filter(Boolean);
+const base = '/' + (parts[0] || '') + '/';
+const route = location.pathname.slice(base.length - 1) + location.search + location.hash;
+location.replace(base + '?__route=' + encodeURIComponent(route));
+</script></body></html>
