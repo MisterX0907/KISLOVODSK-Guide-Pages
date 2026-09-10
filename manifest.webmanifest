@@ -1,0 +1,25 @@
+{
+  "id": ".",
+  "name": "Кисловодск — ваш личный гид",
+  "short_name": "Кисловодск",
+  "lang": "ru",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fbfaf7",
+  "theme_color": "#234c65",
+  "icons": [
+    {
+      "src": "icons/guide-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/guide-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
