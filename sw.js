@@ -1,9 +1,16 @@
-const CACHE = 'kislovodsk-static-v2';
+const CACHE = 'kislovodsk-static-v3';
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
 const scoped = path => BASE + path || '/';
 const SHELL = [scoped('/offline.html'), scoped('/icons/guide-192.png'), scoped('/icons/guide-512.png')];
-self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL))));
-self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('kislovodsk-static-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
+self.addEventListener('install', event => event.waitUntil(Promise.all([caches.open(CACHE).then(cache => cache.addAll(SHELL)), self.skipWaiting()])));
+self.addEventListener('activate', event => event.waitUntil((async () => {
+  const keys = await caches.keys();
+  await Promise.all(keys.filter(key => key.startsWith('kislovodsk-static-') && key !== CACHE).map(key => caches.delete(key)));
+  await self.clients.claim();
+  await new Promise(resolve => setTimeout(resolve, 250));
+  const windows = await self.clients.matchAll({ type: 'window' });
+  windows.forEach(client => { void client.navigate(client.url); });
+})()));
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
