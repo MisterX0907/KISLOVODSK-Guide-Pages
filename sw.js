@@ -1,4 +1,4 @@
-const CACHE = 'kislovodsk-static-v3';
+const CACHE = 'kislovodsk-static-v4';
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
 const scoped = path => BASE + path || '/';
 const SHELL = [scoped('/offline.html'), scoped('/icons/guide-192.png'), scoped('/icons/guide-512.png')];
@@ -7,9 +7,7 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
   const keys = await caches.keys();
   await Promise.all(keys.filter(key => key.startsWith('kislovodsk-static-') && key !== CACHE).map(key => caches.delete(key)));
   await self.clients.claim();
-  await new Promise(resolve => setTimeout(resolve, 250));
-  const windows = await self.clients.matchAll({ type: 'window' });
-  windows.forEach(client => { void client.navigate(client.url); });
+  // Claim open pages without reloading them or dismissing their dialogs.
 })()));
 self.addEventListener('fetch', event => {
   const request = event.request;
